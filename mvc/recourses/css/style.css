@@ -1,0 +1,55 @@
+.wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+header .wrapper {
+    padding: 0px 10px 0px 10px;
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+.newwrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    margin: 50px;
+}
+
+nav a {
+    display: inline;
+    margin-right: 20px;
+    color: white;
+}
+
+nav a:last-child {
+    margin-right: 0;
+}
+
+header {
+    background: black;
+}
+
+footer {
+    background-color: black;
+    color: grey;
+}
+
+footer p {
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
+    padding-left: 10px;
+}

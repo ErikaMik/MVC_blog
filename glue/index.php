@@ -85,12 +85,14 @@ function renderListItems(){
     $stmt = connect()->query('SELECT * FROM glue');
     foreach ($stmt as $row) {
         $html = '';
-        $html .= '<div>';
+        $html .= '<div class="card">';
+        $html .= '<div class="content">';
         $html .= '<h2>' . $row["name"] . '</h2>';
         $html .= '<h2>' . $row["price"] . '€</h2>';
         $html .= '<h3>APRAŠYMAS</h3>';
-        $html .= '<p>' . $row["description"] . '</p>';
-        $html .= '<p class="p"><img src="' . $row["image"] . '"></p>';
+        $html .= '<div id="content">' . $row["description"] . '</div>';
+        $html .= '</div>';
+        $html .= '<div class="img"><img src="' . $row["image"] . '"></div>';
         $html .= '</div>';
         echo $html;
     }
@@ -100,11 +102,38 @@ function renderView(){
     $html = '';
     $html .= '<section>';
     $html .= renderListItems();
-    $html .= '</section>';
+    $html .= '</section>'; 
     echo $html;
 }
 
-echo renderView();
+
+//echo renderView();
+
+function renderItem($row)
+{
+    $html = '';
+    $html .= '<div class="card">';
+    $html .= '<div class="content">';
+    $html .= '<h2>' . $row["name"] . '</h2>';
+    $html .= '<h2>' . $row["price"] . '€</h2>';
+    $html .= '<h3>APRAŠYMAS</h3>';
+    $html .= '<div id="content">' . $row["description"] . '</div>';
+    $html .= '</div>';
+    $html .= '<div class="img"><img src="' . $row["image"] . '"></div>';
+    $html .= '</div>';
+    return $html;
+}
+
+function renderView2(){
+$stmt = connect()->query('SELECT * FROM glue');
+foreach ($stmt as $row) {
+    $html = '';
+    $html .= renderItem($row);
+    return $html;
+}
+}
+
+echo renderView2();
 
 ?>
 
@@ -115,19 +144,34 @@ echo renderView();
         justify-content: center;
     }
 
-    div {
-        max-width: 25%;
+    .card {
+        width: 25%;
+        /*height: 850px;*/
         margin: 10px;
         padding: 10px;
         border: 1px solid black;
         border-radius: 5px;
+        background-color: #8affa5;
+
+    }
+
+    .content {
+        height: 400px;
     }
 
     img {
         max-width: 200px;
+        margin: 10px;
     }
 
-    .p {
+    .img {
+        display: flex;
         text-align: center;
+        background-color: white;
+        height: 400px;
+        border-radius: 5px;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
     }
 </style>
