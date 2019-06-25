@@ -11,6 +11,10 @@ class ComposerStaticInit4a33c4eace1334601ed8af43ad89263b
         array (
             'Psr\\Log\\' => 8,
         ),
+        'C' => 
+        array (
+            'Core\\' => 5,
+        ),
         'A' => 
         array (
             'App\\' => 4,
@@ -22,10 +26,36 @@ class ComposerStaticInit4a33c4eace1334601ed8af43ad89263b
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
+        'Core\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/core',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
+    );
+
+    public static $classMap = array (
+        'App\\Controller\\ErrorController' => __DIR__ . '/../..' . '/app/Controller/ErrorController.php',
+        'App\\Controller\\HomeController' => __DIR__ . '/../..' . '/app/Controller/HomeController.php',
+        'App\\Controller\\PostController' => __DIR__ . '/../..' . '/app/Controller/PostController.php',
+        'App\\Helper\\Helper' => __DIR__ . '/../..' . '/app/Helper/Helper.php',
+        'App\\Model\\PostModel' => __DIR__ . '/../..' . '/app/Model/Postsmodel.php',
+        'Core\\Controller' => __DIR__ . '/../..' . '/core/Controller.php',
+        'Core\\Database' => __DIR__ . '/../..' . '/core/Database.php',
+        'Core\\View' => __DIR__ . '/../..' . '/core/View.php',
+        'Psr\\Log\\AbstractLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/AbstractLogger.php',
+        'Psr\\Log\\InvalidArgumentException' => __DIR__ . '/..' . '/psr/log/Psr/Log/InvalidArgumentException.php',
+        'Psr\\Log\\LogLevel' => __DIR__ . '/..' . '/psr/log/Psr/Log/LogLevel.php',
+        'Psr\\Log\\LoggerAwareInterface' => __DIR__ . '/..' . '/psr/log/Psr/Log/LoggerAwareInterface.php',
+        'Psr\\Log\\LoggerAwareTrait' => __DIR__ . '/..' . '/psr/log/Psr/Log/LoggerAwareTrait.php',
+        'Psr\\Log\\LoggerInterface' => __DIR__ . '/..' . '/psr/log/Psr/Log/LoggerInterface.php',
+        'Psr\\Log\\LoggerTrait' => __DIR__ . '/..' . '/psr/log/Psr/Log/LoggerTrait.php',
+        'Psr\\Log\\NullLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/NullLogger.php',
+        'Psr\\Log\\Test\\DummyTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
+        'Psr\\Log\\Test\\LoggerInterfaceTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
+        'Psr\\Log\\Test\\TestLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/TestLogger.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -33,6 +63,7 @@ class ComposerStaticInit4a33c4eace1334601ed8af43ad89263b
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit4a33c4eace1334601ed8af43ad89263b::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit4a33c4eace1334601ed8af43ad89263b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4a33c4eace1334601ed8af43ad89263b::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -7,5 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
+    'Core\\' => array($baseDir . '/core'),
     'App\\' => array($baseDir . '/app'),
 );

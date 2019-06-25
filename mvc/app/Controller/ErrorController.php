@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use Core\Controller;
 class ErrorController
 {
     public function classNotFound(){

@@ -1,16 +1,19 @@
 <?php
 
 namespace App\Controller;
+use Core\Controller;
 
-class PostController
+class PostController extends Controller
 {
-    public function __construct()
-    {
-        echo 'Post page';
-    }
-
     public function index(){
-        echo 'Visi postai';
+        $postsObject = new \App\Model\PostModel();
+        $this->view->posts = $postsObject->getPosts();
+        $this->view->post = $postsObject->getPost(2);
+
+        $this->view->render('page/header');
+        $this->view->title = 'Pavadinimas';
+        $this->view->render('posts/post');
+        $this->view->render('page/footer');
     }
 
     public function show(){

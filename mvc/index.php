@@ -47,8 +47,10 @@ if(isset($path[1]) && !empty($path[1])){
 
 } else {
     $object = new \App\Controller\HomeController();
+    $object->index();
 }
 
-require 'views/page/header.php';
-require 'views/page/footer.php';
+
+//require 'views/page/header.php';
+//require 'views/page/footer.php';
 
