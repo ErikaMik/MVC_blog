@@ -7,14 +7,14 @@ class PostModel
     public function getPosts(){
         $db = new Database();
         //return $db->select('name')->from('users');
-        $db->select()->from('users');
-        return $db->get();
+        $db->select()->from('posts');
+        return $db->getAll();
     }
 
     public function getPost($id){
         $db = new Database();
         //return $db->select('name')->from('users');
-        $db->select()->from('users')->where('id', $id);
+        $db->select()->from('posts')->where('id', $id);
         return $db->get();
     }
 }

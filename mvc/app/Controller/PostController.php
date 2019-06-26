@@ -8,7 +8,8 @@ class PostController extends Controller
     public function index(){
         $postsObject = new \App\Model\PostModel();
         $this->view->posts = $postsObject->getPosts();
-        $this->view->post = $postsObject->getPost(2);
+        $post = $this->view->post = $postsObject->getPost(1);
+        $post->title;
 
         $this->view->render('page/header');
         $this->view->title = 'Pavadinimas';

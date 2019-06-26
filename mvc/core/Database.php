@@ -31,14 +31,38 @@ class Database
         return $this;
     }
 
-    public function get()
-    {
+    public function execute(){
         $this->connect();
-        $sql = $this->sql; //"SELECT * FROM users";
+        $sql = $this->sql;
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $user = $stmt->fetchObject();
-        return $user;
+        return $stmt;
+    }
+
+    public function getAll()
+    {
+       $stmt = $this->execute();
+       $data = [];
+        while($row = $stmt->fetchObject()){
+            $data[] = $row;
+        }
+        return $data;
+    }
+
+    public function get()
+    {
+        $stmt = $this->execute();
+        return $stmt->fetchObject();
+//        $data = [];
+//        while($row = $stmt->fetchObject()){
+//            $data[] = $row;
+//        }
+
+//        if(count($data) == 1){  //isima elementa is array, turim nebe array, o objekta
+//            $data = $data[0];
+//        }
+//
+//        return $data;
     }
 
     public function where($fieldanme, $value){
