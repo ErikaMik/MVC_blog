@@ -17,4 +17,8 @@ class PostModel
         $db->select()->from('posts')->where('id', $id);
         return $db->get();
     }
+
+    public function createPost($data){
+        // desim i db
+}
 }

@@ -17,8 +17,8 @@
             <img src="https://www.bloggingpro.com/wp-content/uploads/2012/06/your-blog-logo.png">
         </div>
         <nav>
-            <a href="">Home</a>
-            <a href="#about">About Us</a>
+            <a href="http://194.5.157.97/php2/mvc/index.php/">Home</a>
+            <a href="http://194.5.157.97/php2/mvc/index.php/post">BLOG</a>
             <a href="#services">Services</a>
             <a href="#contacts">Contacts</a>
         </nav>

@@ -24,4 +24,14 @@ class PostController extends Controller
         $this->view->render('posts/onepost');
     }
 
+    public function create(){
+        //atvaizduoti create forma
+        $this->view->render('post/admin/create');
+    }
+
+    public function store(){
+        $data = $_POST;
+        //kviesim PostsModel Cass ir createPost metoda
+        //ivyks redirect i index metoda index.php/post
+    }
 }

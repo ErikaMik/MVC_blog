@@ -31,6 +31,26 @@ class Database
         return $this;
     }
 
+    public function insert(){
+
+        return $this;
+    }
+
+    public function update(){
+
+        return $this;
+    }
+
+    public function andWhere(){
+
+        return $this;
+    }
+
+    public function delete(){
+
+        return $this;
+    }
+
     public function execute(){
         $this->connect();
         $sql = $this->sql;

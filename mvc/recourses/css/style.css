@@ -53,3 +53,17 @@ footer a {
     color: white;
     padding-left: 10px;
 }
+
+.posts-wrapper {
+    width: 900px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.post-column {
+    width: 25%;
+}
+
+.post-column img {
+    height: 200px;
+}
