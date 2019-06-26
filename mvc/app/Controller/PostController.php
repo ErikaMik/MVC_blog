@@ -11,14 +11,17 @@ class PostController extends Controller
         $post = $this->view->post = $postsObject->getPost(1);
         $post->title;
 
-        $this->view->render('page/header');
+//        $this->view->render('page/header');
         $this->view->title = 'Pavadinimas';
         $this->view->render('posts/post');
-        $this->view->render('page/footer');
+//        $this->view->render('page/footer');
     }
 
     public function show(){
-        echo 'Vienas postas';
+        $id = (int)$_GET['id'];
+        $postsObject = new \App\Model\PostModel();
+        $this->view->post = $postsObject->getPost($id);
+        $this->view->render('posts/onepost');
     }
 
 }

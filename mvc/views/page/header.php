@@ -5,7 +5,7 @@
 <html>
 <head>
 <!--    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">-->
-    <link rel="stylesheet" type="text/css" href="../recourses/css/style.css">
+    <link rel="stylesheet" type="text/css" href="http://194.5.157.97/php2/mvc/recourses/css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Quattrocento&display=swap" rel="stylesheet">
     <title>Blogas</title>
