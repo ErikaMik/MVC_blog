@@ -20,18 +20,32 @@ class PostController extends Controller
     public function show(){
         $id = (int)$_GET['id'];
         $postsObject = new \App\Model\PostModel();
-        $this->view->post = $postsObject->getPost($id);
+        $postsObject->load($id);
+        $this->view->post = $postsObject;
         $this->view->render('posts/onepost');
     }
 
     public function create(){
-        //atvaizduoti create forma
-        $this->view->render('post/admin/create');
+        //atvaizduoti create forma [VEIKIA]
+        $this->view->render('posts/admin/create');
     }
 
     public function store(){
         $data = $_POST;
-        //kviesim PostsModel Cass ir createPost metoda
+        //print_r($_POST);
+        //die();
+        $postModelObject = new \App\Model\PostModel();
+        $postModelObject->setTitle($_POST['title']);
+        $postModelObject->setContent($_POST['content']);
+        $postModelObject->setAuthorId(1);
+        $postModelObject->setImage($_POST['post_img']);
+        $postModelObject->save();
+
+        $postModelObject->redirect('http://194.5.157.97/php2/mvc/index.php/post');
+
+        //kviesim PostsModel Class ir createPost metoda
         //ivyks redirect i index metoda index.php/post
     }
+
+
 }

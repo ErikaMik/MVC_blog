@@ -31,12 +31,12 @@ class Database
         return $this;
     }
 
-    public function insert(){
-
+    public function insert($table, $fields, $values){
+        $this->sql .= 'INSERT INTO ' .$table. '(' .$fields. ')' . ' VALUES ' . '(' . $values . ')';
         return $this;
     }
 
-    public function update(){
+    public function update($table){
 
         return $this;
     }
@@ -77,11 +77,9 @@ class Database
 //        while($row = $stmt->fetchObject()){
 //            $data[] = $row;
 //        }
-
 //        if(count($data) == 1){  //isima elementa is array, turim nebe array, o objekta
 //            $data = $data[0];
 //        }
-//
 //        return $data;
     }
 

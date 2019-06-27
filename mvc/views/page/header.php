@@ -19,7 +19,7 @@
         <nav>
             <a href="http://194.5.157.97/php2/mvc/index.php/">Home</a>
             <a href="http://194.5.157.97/php2/mvc/index.php/post">BLOG</a>
-            <a href="#services">Services</a>
+            <a href="http://194.5.157.97/php2/mvc/index.php/post/create">Create post</a>
             <a href="#contacts">Contacts</a>
         </nav>
     </div>
