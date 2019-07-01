@@ -8,8 +8,8 @@ class PostController extends Controller
     public function index(){
         $postsObject = new \App\Model\PostModel();
         $this->view->posts = $postsObject->getPosts();
-        $post = $this->view->post = $postsObject->getPost(1);
-        $post->title;
+        //$post = $this->view->post = $postsObject->getPost(1);
+        //$post->title;
 
 //        $this->view->render('page/header');
         $this->view->title = 'Pavadinimas';
@@ -30,6 +30,16 @@ class PostController extends Controller
         $this->view->render('posts/admin/create');
     }
 
+    public function delete(){
+        $id = (int)$_GET['id'];
+        if(isset($id)){
+            $postsObject = new \App\Model\PostModel();
+            $postsObject->removeRecord($id);
+        }
+        $postModelObject = new \App\Model\PostModel();
+        $postModelObject->redirect('http://194.5.157.97/php2/mvc/index.php/post');
+    }
+
     public function store(){
         $data = $_POST;
         //print_r($_POST);
@@ -47,5 +57,23 @@ class PostController extends Controller
         //ivyks redirect i index metoda index.php/post
     }
 
+    public function edit(){
+        $id = (int)$_GET['id'];
+        $postModelObject = new \App\Model\PostModel();
+        $postModelObject->load($id);
+        $this->view->post = $postModelObject;
+        $this->view->render('posts/admin/edit');
+    }
 
+    public function update(){
+        $data = $_POST;
+        $postModelObject = new \App\Model\PostModel();
+        $postModelObject->setTitle($_POST['title']);
+        $postModelObject->setContent($_POST['content']);
+        $postModelObject->setAuthorId(1);
+        $postModelObject->setImage($_POST['post_img']);
+        $postModelObject->save($data['id']);
+
+        $postModelObject->redirect('http://194.5.157.97/php2/mvc/index.php/post');
+    }
 }

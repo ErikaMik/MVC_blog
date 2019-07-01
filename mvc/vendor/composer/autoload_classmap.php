@@ -10,7 +10,7 @@ return array(
     'App\\Controller\\HomeController' => $baseDir . '/app/Controller/HomeController.php',
     'App\\Controller\\PostController' => $baseDir . '/app/Controller/PostController.php',
     'App\\Helper\\Helper' => $baseDir . '/app/Helper/Helper.php',
-    'App\\Model\\PostModel' => $baseDir . '/app/Model/Postsmodel.php',
+    'App\\Model\\PostModel' => $baseDir . '/app/Model/PostsModel.php',
     'Core\\Controller' => $baseDir . '/core/Controller.php',
     'Core\\Database' => $baseDir . '/core/Database.php',
     'Core\\View' => $baseDir . '/core/View.php',

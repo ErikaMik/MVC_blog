@@ -4,7 +4,7 @@
 
 
     <footer>
-        <p>Copyright © Microsoft 2018. All rights reserved. <a href="#top">Go UP!</a></p>
+        <p>Copyright © ErikaMik 2019. All rights reserved. <a href="#top">Go UP!</a></p>
     </footer>
     </body>
 </html>

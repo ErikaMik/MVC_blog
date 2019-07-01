@@ -33,13 +33,16 @@ class Database
 
     public function insert($table, $fields, $values){
         $this->sql .= 'INSERT INTO ' .$table. '(' .$fields. ')' . ' VALUES ' . '(' . $values . ')';
+        //return $this;
+//        die($this->sql);
+    }
+
+    public function update($table, $setContent){
+        $this->sql .= "UPDATE $table SET $setContent";
         return $this;
     }
 
-    public function update($table){
 
-        return $this;
-    }
 
     public function andWhere(){
 
@@ -47,7 +50,7 @@ class Database
     }
 
     public function delete(){
-
+        $this->sql .= 'DELETE ';
         return $this;
     }
 
