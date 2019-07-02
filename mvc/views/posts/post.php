@@ -7,9 +7,9 @@
                     <h3><?php echo $post->title ?></h3>
                 </a>
                 <a href="http://194.5.157.97/php2/mvc/index.php/post/delete/<?php echo  $post->id ?>"
-                   onClick="return confirm('Are you sure you want to delete blog post: <?php echo $post->title ?>');">
-                    DELETE!</a>
-                <a href="http://194.5.157.97/php2/mvc/index.php/post/edit/<?php echo  $post->id ?>"');">
+                   onClick="return confirm('Are you sure you want to delete blog post: <?php echo $post->title ?>');"
+                   class="btn">DELETE!</a>
+                <a href="http://194.5.157.97/php2/mvc/index.php/post/edit/<?php echo  $post->id ?>"');" class="btn">
                     Edit!</a>
             </div>
         <?php endforeach; ?>

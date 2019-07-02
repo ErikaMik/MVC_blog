@@ -18,6 +18,16 @@ body {
     align-items: center;
 }
 
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.btn {
+    border: 1px solid white;
+    padding: 5px;
+}
+
 .logo img {
     height: 50px;
     margin: 50px;

@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Controller;
+
 use Core\Controller;
+use App\Helper\Helper;
 
 class PostController extends Controller
 {
@@ -82,6 +84,7 @@ class PostController extends Controller
         $postModelObject->setImage($_POST['post_img']);
         $postModelObject->save($data['id']);
 
-        $postModelObject->redirect('http://194.5.157.97/php2/mvc/index.php/post');
+        $helper = new Helper();
+        $helper->redirect('http://194.5.157.97/php2/mvc/index.php/post');
     }
 }
