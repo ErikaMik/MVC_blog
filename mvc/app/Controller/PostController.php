@@ -61,7 +61,8 @@ class PostController extends Controller
         $postModelObject->setImage($_POST['post_img']);
         $postModelObject->save();
 
-        $postModelObject->redirect('http://194.5.157.97/php2/mvc/index.php/post');
+        $helper = new Helper();
+        $helper->redirect('http://194.5.157.97/php2/mvc/index.php/post');
 
         //kviesim PostsModel Class ir createPost metoda
         //ivyks redirect i index metoda index.php/post
