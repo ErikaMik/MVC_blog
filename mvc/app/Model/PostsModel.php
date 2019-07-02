@@ -1,7 +1,7 @@
 <?php
 namespace App\Model;
 use Core\Database;
-use mysql_xdevapi\DocResult;
+
 
 class PostModel
 {
@@ -10,6 +10,12 @@ class PostModel
     private $post_img;
     private $author_id;
     private $id = null;
+    private $db;
+
+    public function __construct()
+    {
+        $this->db = new Database();
+    }
 
     public function getId(){
         return $this->id;
@@ -49,33 +55,32 @@ class PostModel
         return $this->author_id;
     }
 
-    public function redirect($url, $statusCode = 303)
-    {
-        header('Location: ' . $url, true, $statusCode);
-        die();
-    }
+    // Iskelem i Helper class
+//    public function redirect($url, $statusCode = 303)
+//    {
+//        header('Location: ' . $url, true, $statusCode);
+//        die();
+//    }
 
-    public function getPosts(){
+    public static function getPosts(){
+        //return $this->db->select('name')->from('users');
         $db = new Database();
-        //return $db->select('name')->from('users');
-        $db->select()->from('posts');
+        $db->select()->from('posts')->where('active', 1);
         return $db->getAll();
     }
 
     //getPost() perrasyta i load() ir nebenaudojama
     public function getPost($id){
-        $db = new Database();
-        //return $db->select('name')->from('users');
-        $db->select()->from('posts')->where('id', $id);
-        return $db->get();
+        //return $this->db->select('name')->from('users');
+        $this->db->select()->from('posts')->where('id', $id);
+        return $this->db->get();
     }
 
     //load uzloadina ir susetina viska
 
     public function load($id){
-        $db = new Database();
-        $db->select()->from('posts')->where('id', $id);
-        $post = $db->get();
+        $this->db->select()->from('posts')->where('id', $id);
+        $post = $this->db->get();
         $this->id = $post->id;
         $this->title = $post->title;
         $this->content = $post->content;
@@ -83,18 +88,24 @@ class PostModel
         $this->post_img = $post->post_img;
     }
 
-    public function removeRecord($id){
-        $db = new Database();
-        $db->delete()->from('posts')->where('id', $id);
-        return $db->get();
+//    public function removeRecord($id){
+//        $this->db = new Database();
+//        $this->db->delete()->from('posts')->where('id', $id);
+//        return $this->db->get();
+//    }
+
+    public function delete($id){
+        $setContent = "active = 0";
+        $this->db->update('posts', $setContent)->where('id', $id);
+        $this->db->get();
     }
 
 //    public function save(){
 //        $fields = 'title, content, author_id, post_img';
 //        $values = "'" .$this->title. "','" .$this->content. "','" .$this->author_id. "','" .$this->post_img. "'";
-//        $db = new Database();
-//        $db->insert('posts', $fields, $values);
-//        return $db->get();
+//        $this->db = new Database();
+//        $this->db->insert('posts', $fields, $values);
+//        return $this->db->get();
 //    }
 //    }
 
@@ -109,18 +120,17 @@ class PostModel
     }
 
     public function update(){
-        $db = new Database();
         $setContent = "title = '$this->title', content = '$this->content', post_img = '$this->post_img', 
         author_id = '$this->author_id'";
-        $db->update('posts', $setContent)->where('id', $this->id);
-        $db->get();
+        $this->db->update('posts', $setContent)->where('id', $this->id);
+        $this->db->get();
     }
 
     public function create(){
         $fields = 'title, content, author_id, post_img';
         $values = "'" .$this->title. "','" .$this->content. "','" .$this->author_id. "','" .$this->post_img. "'";
-        $db = new Database();
-        $db->insert('posts', $fields, $values);
-        return $db->get();
+        $this->db = new Database();
+        $this->db->insert('posts', $fields, $values);
+        return $this->db->get();
     }
 }

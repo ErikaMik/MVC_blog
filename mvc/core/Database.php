@@ -42,10 +42,8 @@ class Database
         return $this;
     }
 
-
-
-    public function andWhere(){
-
+    public function andWhere($field, $value){
+        $this->sql .= " AND $field = '$value'";
         return $this;
     }
 
@@ -76,6 +74,8 @@ class Database
     {
         $stmt = $this->execute();
         return $stmt->fetchObject();
+        $this->sql = '';
+        return $stmt;
 //        $data = [];
 //        while($row = $stmt->fetchObject()){
 //            $data[] = $row;
@@ -87,7 +87,7 @@ class Database
     }
 
     public function where($fieldanme, $value){
-        $this->sql .= ' WHERE ' .$fieldanme. ' = ' .$value;
+        $this->sql .= " WHERE $fieldanme = '$value'";
         return $this;
     }
 }

@@ -6,19 +6,18 @@ use Core\Controller;
 class PostController extends Controller
 {
     public function index(){
-        $postsObject = new \App\Model\PostModel();
-        $this->view->posts = $postsObject->getPosts();
+        $this->view->posts = \App\Model\PostModel::getPosts();
         //$post = $this->view->post = $postsObject->getPost(1);
         //$post->title;
 
 //        $this->view->render('page/header');
-        $this->view->title = 'Pavadinimas';
+        //$this->view->title = 'Pavadinimas';
         $this->view->render('posts/post');
 //        $this->view->render('page/footer');
     }
 
-    public function show(){
-        $id = (int)$_GET['id'];
+    public function show($id){
+        //$id = (int)$_GET['id'];
         $postsObject = new \App\Model\PostModel();
         $postsObject->load($id);
         $this->view->post = $postsObject;
@@ -30,14 +29,23 @@ class PostController extends Controller
         $this->view->render('posts/admin/create');
     }
 
-    public function delete(){
-        $id = (int)$_GET['id'];
-        if(isset($id)){
-            $postsObject = new \App\Model\PostModel();
-            $postsObject->removeRecord($id);
-        }
+//    public function delete(){
+//        $id = (int)$_GET['id'];
+//        if(isset($id)){
+//            $postsObject = new \App\Model\PostModel();
+//            $postsObject->removeRecord($id);
+//        }
+//        $postModelObject = new \App\Model\PostModel();
+//        $postModelObject->redirect('http://194.5.157.97/php2/mvc/index.php/post');
+//    }
+
+    public function delete($id){
+        //$id = (int)$_GET['id'];
         $postModelObject = new \App\Model\PostModel();
-        $postModelObject->redirect('http://194.5.157.97/php2/mvc/index.php/post');
+        $postModelObject->delete($id);
+
+        $helper = new Helper();
+        $helper->redirect('http://194.5.157.97/php2/mvc/index.php/post');
     }
 
     public function store(){
@@ -57,8 +65,8 @@ class PostController extends Controller
         //ivyks redirect i index metoda index.php/post
     }
 
-    public function edit(){
-        $id = (int)$_GET['id'];
+    public function edit($id){
+        //$id = (int)$_GET['id'];
         $postModelObject = new \App\Model\PostModel();
         $postModelObject->load($id);
         $this->view->post = $postModelObject;

@@ -33,7 +33,10 @@ if(isset($path[1]) && !empty($path[1])){
     if(class_exists($controller)){
         $object = new $controller; // or $object = new \App\Controller\PostController;
         if(method_exists($object, $method)){
-            $object->{$method}();
+            if(isset($path[3]) && !empty($path[3])){
+                $object->{$method}($path[3]);
+            }else{
+                $object->{$method}();}
         } else {
             $object = new \App\Controller\ErrorController();
             $object->methodNotFound();
