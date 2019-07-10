@@ -1,2 +1,2 @@
 <?php
-echo 'HOMAS';
+echo $this->form;

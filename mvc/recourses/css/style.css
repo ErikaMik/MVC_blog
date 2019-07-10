@@ -21,11 +21,44 @@ body {
 a {
     text-decoration: none;
     color: white;
+    text-shadow: 2px 2px #000;
+}
+
+h2 {
+    text-shadow: 2px 4px #000;
+}
+
+h2:hover {
+    color: #42f2f5;
+    transition: all 0.4s ease-in-out;
 }
 
 .btn {
     border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px 10px 5px 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.btn:hover:last-child {
+    border-color: #ff99ab;
+    color: #ff99ab;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease-in-out;
+}
+
+.btn:hover:first-child {
+    //border-color: #01ffcb;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: all 0.4s ease-in-out;
+}
+
+.buttons {
+    box-sizing: border-box;
     padding: 5px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .logo img {
@@ -50,6 +83,8 @@ header {
 footer {
     background-color: black;
     color: grey;
+    position: sticky;
+    bottom: 0;
 }
 
 footer p {
@@ -75,13 +110,20 @@ footer a {
 }
 
 .post-column {
-    width: 25%;
+    width: 45%;
     box-sizing: border-box;
     text-align: center;
+    padding: 5px;
+    margin: 10px;
+    border: 1px solid white;
+    border-radius: 10px;
+    background-image: url("http://www.vanseodesign.com/blog/wp-content/uploads/2011/10/background-3.jpg");
+    background-position: center;
 }
 
 .post-column img {
     max-height: 150px;
+    margin-top: 10px;
 }
 
 .singlepost-column{
