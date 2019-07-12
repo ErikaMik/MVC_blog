@@ -1,6 +1,3 @@
-<?php
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,11 +14,21 @@
             <img src="https://www.bloggingpro.com/wp-content/uploads/2012/06/your-blog-logo.png">
         </div>
         <nav>
-            <a href="http://194.5.157.97/php2/mvc/index.php/">Home</a>
-            <a href="http://194.5.157.97/php2/mvc/index.php/post">BLOG</a>
-            <a href="http://194.5.157.97/php2/mvc/index.php/post/create">Create post</a>
-            <a href="http://194.5.157.97/php2/mvc/index.php/account/registration">Register</a>
-            <a href="http://194.5.157.97/php2/mvc/index.php/account/login">Log in</a>
+            <a href="<?php echo url('');?>">Home</a>
+            <a href="<?php echo url('post/'); ?>">BLOG</a>
+            <a href="<?php echo url('post/create'); ?>">Create post</a>
+            <a href="<?php echo url('account/registration'); ?>">Register</a>
+            <?php if($this->user): ?>
+            <a href="<?php echo url('account/logout'); ?>">Log out</a>
+            <?php else: ?>
+            <a href="<?php echo url('account/login'); ?>">Log in</a>
+            <?php endif; ?>
         </nav>
+        <div>
+            <?php if($this->user):?>
+            Hi, <?php echo $this->user->name; ?>
+            <?php endif; ?>
+        </div>
+        </div>
     </div>
-</div>
+

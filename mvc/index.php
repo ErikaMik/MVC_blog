@@ -2,6 +2,8 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+include 'includes/functions.php';
+session_start();
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -36,7 +38,8 @@ if(isset($path[1]) && !empty($path[1])){
             if(isset($path[3]) && !empty($path[3])){
                 $object->{$method}($path[3]);
             }else{
-                $object->{$method}();}
+                $object->{$method}();
+            }
         } else {
             $object = new \App\Controller\ErrorController();
             $object->methodNotFound();

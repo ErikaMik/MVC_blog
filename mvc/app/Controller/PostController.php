@@ -27,8 +27,11 @@ class PostController extends Controller
     }
 
     public function create(){
+        if(currentUser()){
         //atvaizduoti create forma [VEIKIA]
         $this->view->render('posts/admin/create');
+        }else{
+        echo '404';}
     }
 
 //    public function delete(){
@@ -41,16 +44,21 @@ class PostController extends Controller
 //        $postModelObject->redirect('http://194.5.157.97/php2/mvc/index.php/post');
 //    }
 
-    public function delete($id){
-        //$id = (int)$_GET['id'];
-        $postModelObject = new \App\Model\PostModel();
-        $postModelObject->delete($id);
+    public function delete($id)
+    {
+        if(currentUser()) {
+            //$id = (int)$_GET['id'];
+            $postModelObject = new \App\Model\PostModel();
+            $postModelObject->delete($id);
 
-        $helper = new Helper();
-        $helper->redirect('http://194.5.157.97/php2/mvc/index.php/post');
+            $helper = new Helper();
+            $helper->redirect(url('post/'));
+        } else {
+            echo '404';
+        }
     }
-
     public function store(){
+        if(currentUser()){
         $data = $_POST;
         //print_r($_POST);
         //die();
@@ -62,21 +70,29 @@ class PostController extends Controller
         $postModelObject->save();
 
         $helper = new Helper();
-        $helper->redirect('http://194.5.157.97/php2/mvc/index.php/post');
+        $helper->redirect(url('post/'));
 
         //kviesim PostsModel Class ir createPost metoda
         //ivyks redirect i index metoda index.php/post
+    }else{
+            echo '404';
+        }
     }
 
     public function edit($id){
+        if(currentUser()){
         //$id = (int)$_GET['id'];
         $postModelObject = new \App\Model\PostModel();
         $postModelObject->load($id);
         $this->view->post = $postModelObject;
         $this->view->render('posts/admin/edit');
+    }else{
+            echo '404';
+        }
     }
 
     public function update(){
+        if(currentUser()){
         $data = $_POST;
         $postModelObject = new \App\Model\PostModel();
         $postModelObject->setTitle($_POST['title']);
@@ -86,6 +102,9 @@ class PostController extends Controller
         $postModelObject->save($data['id']);
 
         $helper = new Helper();
-        $helper->redirect('http://194.5.157.97/php2/mvc/index.php/post');
+        $helper->redirect(url('post/'));
+    }else{
+            echo '404';
+        }
     }
 }

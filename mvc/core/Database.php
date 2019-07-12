@@ -57,6 +57,7 @@ class Database
         $sql = $this->sql;
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
+        $this->sql='';
         return $stmt;
     }
 

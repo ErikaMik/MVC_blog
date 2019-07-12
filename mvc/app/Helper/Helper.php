@@ -21,4 +21,14 @@ class Helper
         die();
     }
 
+    public static function generateToken($length = 16)
+    {
+        $symbols = 'qwertyuiopasdfghjklzxcvbnm1234567890';
+        $token = '';
+        for($i = 0; $i < $length; $i++){
+            $token .= $symbols[mt_rand(0, strlen($symbols) - 1)];
+        }
+        return $token;
+    }
+
 }

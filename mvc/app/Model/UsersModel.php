@@ -12,6 +12,28 @@ class UsersModel
     private $password;
     private $role_id;
     private $active;
+    private $token;
+    private $tries_to_login;
+
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
+    public function getTriesToLogin()
+    {
+        return $this->tries_to_login;
+    }
+
+    public function setTriesToLogin($tries_to_login)
+    {
+        $this->tries_to_login = $tries_to_login;
+    }
 
     public function __construct()
     {
@@ -33,7 +55,6 @@ class UsersModel
         return $this->name;
     }
 
-
     public function setEmail($email)
     {
         $this->email = $email;
@@ -44,12 +65,10 @@ class UsersModel
         return $this->email;
     }
 
-
     public function getPassword()
     {
         return $this->password;
     }
-
 
     public function setPassword($password)
     {
@@ -77,13 +96,22 @@ class UsersModel
         $this->active = $active;
     }
 
-    public function save($id = null){
+    public function save($id = null)
+    {
         if($id !== null){
             $this->id = $id;
             $this->update();
         }else{
             $this->create();
         }
+    }
+
+    public function update()
+    {
+        $setContent = "name = '$this->name', email = '$this->email', password = '$this->password', 
+        role_id = 1, tries_to_login = '$this->tries_to_login'";
+        $this->db->update('users', $setContent)->where('id', $this->id);
+        $this->db->get();
     }
 
     public function create()
@@ -97,7 +125,48 @@ class UsersModel
     public static function verification($email, $password)
     {
         $db = new Database();
-        $db->select()->from('users')->where('email', $email)->andWhere('password', $password);
+        $db->select()->from('users')
+            ->where('email', $email)
+            ->andWhere('password', $password)
+            ->andWhere('active', 1);
         return $db->get();
     }
+
+    public static function resetLoginNumber($userId)
+    {
+        $db = new Database();
+        $db->update('users', 'tries_to_login = 0')
+            ->where('id', $userId);
+        return $db->get();
+    }
+
+    public function delete()
+    {
+        $db = new Database();
+        $setContent = "active = 0";
+        $db->update('users', $setContent)->where('id', $this->id);
+        $db->get();
+    }
+
+    public function load($id)
+    {
+        $this->db->select()->from('users')->where('id', $id);
+        $user = $this->db->get();
+        $this->id = $user->id;
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->password = $user->password;
+        $this->role_id = $user->role_id;
+        $this->token = $user->token;
+        $this->tries_to_login = $user->tries_to_login;
+        return $this;
+    }
+
+    public function loadByEmail($email)
+    {
+        $this->db->select('id')->from('users')->where('email', $email);
+        $user = $this->db->get();
+        $this->load($user->id);
+    }
+
 }

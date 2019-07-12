@@ -7,27 +7,28 @@ class FormHelper
 
     public function __construct($action, $method, $class)
     {
+
         $this->html = '<form class="'.$class.'" action="'.$action.'" method="'.$method.'">';
     }
     
-    public function addInput($attributes, $label='', $wrapper='', $formtitle='')
+    public function addInput($attributes, $label='', $class='')
     {
         //implementuoti Label
         $html = '';
-        $html.= '<h2>'.$formtitle.'</h2><input ';
+        $html.= '<input';
         foreach ($attributes as $key => $element){
             $html .= ' '.$key.'="'.$element.'"';
         }
         $html .= ' >';
-        if($wrapper != ''){
-            $html = '<div class="'.$wrapper.'">'.$html.'</div>';
+        if($class != ''){
+            $html = $this->wrapElement($class, $html);
         }
         $this->html .= $html;
         return $this;
     }
 
     //selectas
-    public function addSelect($options, $name, $wrapper='', $label='')
+    public function addSelect($options, $name, $class='', $label='')
     {
         //implementuoti Label
         $html = '';
@@ -39,15 +40,15 @@ class FormHelper
             $html .= '</options>';
         }
         $html .= '</select>';
-        if($wrapper != ''){
-            $html = '<div class="'.$wrapper.'">'.$html.'</div>';
+        if($class != ''){
+            $html = $this->wrapElement($class, $html);
         }
         $this->html .= $html;
         return $this;
     }
 
     //textarea
-    public function addTextarea($attributes, $name, $value, $wrapper='', $label='')
+    public function addTextarea($attributes, $name, $value, $class='', $label='')
     {
         //implementuoti Label
         $html = '';
@@ -59,13 +60,17 @@ class FormHelper
         $html .= ' >';
         $html .= $value;
         $html .= '</textarea>';
-        if($wrapper != ''){
-            $html = '<div class="'.$wrapper.'">'.$html.'</div>';
+        if($class != ''){
+            $html = $this->wrapElement($class, $html);
         }
         $this->html .= $html;
         return $this;
     }
 
+    public function wrapElement($class, $html){
+        $html = '<div class="'.$class.'">'.$html.'</div>';
+        return $html;
+    }
 
     public function get()
     {

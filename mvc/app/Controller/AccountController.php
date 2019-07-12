@@ -5,6 +5,7 @@ namespace App\Controller;
 use Core\Controller;
 use App\Helper\Helper;
 use App\Helper\InputHelper;
+use App\Model\UsersModel;
 
 
 class AccountController extends Controller
@@ -17,7 +18,7 @@ class AccountController extends Controller
     public function registration()
     {
         //load registration form
-        $form = new \App\Helper\FormHelper('http://194.5.157.97/php2/mvc/index.php/account/auth', 'post', 'wrapper');
+        $form = new \App\Helper\FormHelper(url('account/create'), 'post', 'wrapper');
         $form->addInput([
             'name' => 'name',
             'type' => 'text',
@@ -41,22 +42,20 @@ class AccountController extends Controller
             ->addSelect([
                 1=>'admin',
                 2=>'master admin',
-                3=>'user'], 'city')
+                3=>'user'], 'role_id')
             ->addInput([
                 'name' => 'registrate',
                 'type' => 'submit',
                 'value' => 'submit',
-            ])->addTextarea([
-                'placeholder' => 'Insert post...',
-                'rows' => '20',
-            ], 'content', '');
+            ], '', '');
         $this->view->form =  $form->get();
         $this->view->render('account/registration');
     }
 
     public function login()
     {
-        $form = new \App\Helper\FormHelper('http://194.5.157.97/php2/mvc/index.php/account/auth', 'post', 'wrapper');
+        echo Helper::generateToken();
+        $form = new \App\Helper\FormHelper('auth', 'post', 'wrapper');
         $form->addInput([
             'name' => 'email',
             'placeholder' => 'email@email.lt',
@@ -83,13 +82,13 @@ class AccountController extends Controller
                 $accountModelObject = new \App\Model\UsersModel();
                 $accountModelObject->setName($_POST['name']);
                 $accountModelObject->setEmail($_POST['email']);
-                $pass = \App\Helper\InputHelper::passwordGenerator($_POST['password']);
+                $pass = InputHelper::passwordGenerator($_POST['password']);
                 $accountModelObject->setPassword($pass);
-                $accountModelObject->setRoleId(1);
+                $accountModelObject->setRoleId($_POST['role_id']);
                 $accountModelObject->setActive(1);
                 $accountModelObject->save();
                 $helper = new Helper();
-                $helper->redirect('http://194.5.157.97/php2/mvc/index.php');
+                $helper->redirect(url(''));
             }
         }
     }
@@ -98,17 +97,37 @@ class AccountController extends Controller
     {
         $password = $_POST['password'];
         $email = $_POST['email'];
-
-        $user = \App\Model\UsersModel::verification($email, $password);
+        $password = InputHelper::passwordGenerator($password);
+        $user = UsersModel::verification($email, $password);
 
         if(!empty($user)){
             // vyks dalykai prisiloginus
-            echo 'You\'re loged in';
+            //reset tries to login
+            $_SESSION['user'] = $user;
+            UsersModel::resetLoginNumber($user->id);
+            $helper = new Helper();
+            $helper->redirect(url('post/'));
         }else{
             echo 'Could not log in';
-            //Neteisingas prisijungimas
-            //redirect i admin
+            if(!InputHelper::uniqueEmail($email)){
+                $user = new UsersModel();
+                $user->loadByEmail($email);
+
+                if($user->getTriesToLogin() > 4){
+                    $user->delete();
+                    //send email - NAMU DARBAS
+                }else{
+                    $triesToLogin = $user->getTriesToLogin() + 1;
+                    $user->setTriesToLogin($triesToLogin);
+                    $user->save($user->getId());
+                }
+            }
         }
     }
 
+    public function logout(){
+        session_destroy();
+        $helper = new Helper();
+        $helper->redirect(url('post/'));
+    }
 }
