@@ -38,6 +38,7 @@ class ComposerStaticInit4a33c4eace1334601ed8af43ad89263b
 
     public static $classMap = array (
         'App\\Controller\\AccountController' => __DIR__ . '/../..' . '/app/Controller/AccountController.php',
+        'App\\Controller\\CategoryController' => __DIR__ . '/../..' . '/app/Controller/CategoryController.php',
         'App\\Controller\\ErrorController' => __DIR__ . '/../..' . '/app/Controller/ErrorController.php',
         'App\\Controller\\FormController' => __DIR__ . '/../..' . '/app/Controller/FormController.php',
         'App\\Controller\\HomeController' => __DIR__ . '/../..' . '/app/Controller/HomeController.php',
@@ -46,6 +47,8 @@ class ComposerStaticInit4a33c4eace1334601ed8af43ad89263b
         'App\\Helper\\FormHelper' => __DIR__ . '/../..' . '/app/Helper/FormHelper.php',
         'App\\Helper\\Helper' => __DIR__ . '/../..' . '/app/Helper/Helper.php',
         'App\\Helper\\InputHelper' => __DIR__ . '/../..' . '/app/Helper/InputHelper.php',
+        'App\\Model\\CategoriesModel' => __DIR__ . '/../..' . '/app/Model/CategoriesModel.php',
+        'App\\Model\\FormModel' => __DIR__ . '/../..' . '/app/Model/FormModel.php',
         'App\\Model\\PostModel' => __DIR__ . '/../..' . '/app/Model/PostsModel.php',
         'App\\Model\\UsersModel' => __DIR__ . '/../..' . '/app/Model/UsersModel.php',
         'Core\\Controller' => __DIR__ . '/../..' . '/core/Controller.php',

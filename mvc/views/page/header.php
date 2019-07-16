@@ -23,6 +23,9 @@
             <?php else: ?>
             <a href="<?php echo url('account/login'); ?>">Log in</a>
             <?php endif; ?>
+            <?php foreach($this->categories as $category):?>
+                <a href="<?php echo url('category/show/').$category->id;?>"><?php echo $category->name; ?></a>
+            <?php endforeach; ?>
         </nav>
         <div>
             <?php if($this->user):?>

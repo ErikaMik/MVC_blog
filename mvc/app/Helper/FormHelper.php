@@ -5,7 +5,7 @@ namespace App\Helper;
 class FormHelper
 {
 
-    public function __construct($action, $method, $class)
+    public function __construct($action, $method, $class = '')
     {
 
         $this->html = '<form class="'.$class.'" action="'.$action.'" method="'.$method.'">';

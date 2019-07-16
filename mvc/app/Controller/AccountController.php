@@ -54,7 +54,7 @@ class AccountController extends Controller
 
     public function login()
     {
-        echo Helper::generateToken();
+        //echo Helper::generateToken();
         $form = new \App\Helper\FormHelper('auth', 'post', 'wrapper');
         $form->addInput([
             'name' => 'email',
@@ -108,13 +108,28 @@ class AccountController extends Controller
             $helper = new Helper();
             $helper->redirect(url('post/'));
         }else{
-            echo 'Could not log in';
+            echo 'Could not log in<br>';
             if(!InputHelper::uniqueEmail($email)){
                 $user = new UsersModel();
                 $user->loadByEmail($email);
 
                 if($user->getTriesToLogin() > 4){
+                    $token = Helper::generateToken();
+                    $user->setToken($token);
+                    $user->save($user->getId());
                     $user->delete();
+
+                    $headers = 'From: noreply@erika.com';
+                    $message = $token;
+                    $subject='Verify account';
+                    $emailSent = mail($email, $subject, $message, $headers);
+
+                    if( $emailSent == true ) {
+                        echo "Message sent successfully...";
+                    }else {
+                        echo "Message could not be sent...";
+                    }
+
                     //send email - NAMU DARBAS
                 }else{
                     $triesToLogin = $user->getTriesToLogin() + 1;

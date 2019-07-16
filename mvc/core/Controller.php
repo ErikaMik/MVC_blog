@@ -1,6 +1,7 @@
 <?php
 
 namespace Core;
+use App\Model\CategoriesModel;
 use Core\View;
 class Controller
 {
@@ -10,6 +11,7 @@ class Controller
     {
         $this->view = new View();
         $this->view->user = currentUser();
+        $this->view->categories = CategoriesModel::getParentCategories();
     }
 
 

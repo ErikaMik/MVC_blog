@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Helper\Helper;
 use Core\Database;
 
 class UsersModel
@@ -109,7 +110,7 @@ class UsersModel
     public function update()
     {
         $setContent = "name = '$this->name', email = '$this->email', password = '$this->password', 
-        role_id = 1, tries_to_login = '$this->tries_to_login'";
+        role_id = 1, tries_to_login = '$this->tries_to_login', token = '$this->token'";
         $this->db->update('users', $setContent)->where('id', $this->id);
         $this->db->get();
     }
