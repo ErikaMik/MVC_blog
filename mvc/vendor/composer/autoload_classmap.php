@@ -18,7 +18,7 @@ return array(
     'App\\Helper\\InputHelper' => $baseDir . '/app/Helper/InputHelper.php',
     'App\\Model\\CategoriesModel' => $baseDir . '/app/Model/CategoriesModel.php',
     'App\\Model\\FormModel' => $baseDir . '/app/Model/FormModel.php',
-    'App\\Model\\PostModel' => $baseDir . '/app/Model/PostsModel.php',
+    'App\\Model\\PostModel' => $baseDir . '/app/Model/PostModel.php',
     'App\\Model\\UsersModel' => $baseDir . '/app/Model/UsersModel.php',
     'Core\\Controller' => $baseDir . '/core/Controller.php',
     'Core\\Database' => $baseDir . '/core/Database.php',

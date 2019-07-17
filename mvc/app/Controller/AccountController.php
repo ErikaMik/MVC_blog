@@ -79,7 +79,7 @@ class AccountController extends Controller
     {
         if (inputHelper::checkEmail($_POST['email'])) {
             if (InputHelper::PasswordMatch($_POST['password'], $_POST['password2'])){
-                $accountModelObject = new \App\Model\UsersModel();
+                $accountModelObject = new UsersModel();
                 $accountModelObject->setName($_POST['name']);
                 $accountModelObject->setEmail($_POST['email']);
                 $pass = InputHelper::passwordGenerator($_POST['password']);
@@ -140,7 +140,8 @@ class AccountController extends Controller
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         session_destroy();
         $helper = new Helper();
         $helper->redirect(url('post/'));

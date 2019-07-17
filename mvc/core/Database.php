@@ -75,8 +75,6 @@ class Database
     {
         $stmt = $this->execute();
         return $stmt->fetchObject();
-        $this->sql = '';
-        return $stmt;
 //        $data = [];
 //        while($row = $stmt->fetchObject()){
 //            $data[] = $row;

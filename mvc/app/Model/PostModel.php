@@ -11,6 +11,25 @@ class PostModel
     private $author_id;
     private $id = null;
     private $db;
+    private $active;
+
+    /**
+     * @return mixed
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param mixed $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
+
 
     public function __construct()
     {
@@ -21,23 +40,28 @@ class PostModel
         return $this->id;
     }
 
-    public function setTitle($title){
+    public function setTitle($title)
+    {
     $this->title = $title;
     }
 
-    public function getTitle(){
+    public function getTitle()
+    {
         return $this->title;
     }
 
-    public function setContent($content){
+    public function setContent($content)
+    {
         $this->content = $content;
     }
 
-    public function getContent(){
+    public function getContent()
+    {
         return $this->content;
     }
 
-    public function setImage($image){
+    public function setImage($image)
+    {
         $this->post_img = $image;
     }
 
@@ -46,7 +70,8 @@ class PostModel
         return $this->post_img;
     }
 
-    public function setAuthorId($author){
+    public function setAuthorId($author)
+    {
         $this->author_id = $author;
     }
 
@@ -62,7 +87,8 @@ class PostModel
 //        die();
 //    }
 
-    public static function getPosts(){
+    public static function getPosts()
+    {
         //return $this->db->select('name')->from('users');
         $db = new Database();
         $db->select()->from('posts')->where('active', 1);
@@ -70,7 +96,8 @@ class PostModel
     }
 
     //getPost() perrasyta i load() ir nebenaudojama
-    public function getPost($id){
+    public function getPost($id)
+    {
         //return $this->db->select('name')->from('users');
         $this->db->select()->from('posts')->where('id', $id);
         return $this->db->get();
@@ -78,7 +105,8 @@ class PostModel
 
     //load uzloadina ir susetina viska
 
-    public function load($id){
+    public function load($id)
+    {
         $this->db->select()->from('posts')->where('id', $id);
         $post = $this->db->get();
         $this->id = $post->id;
@@ -86,31 +114,27 @@ class PostModel
         $this->content = $post->content;
         $this->author_id = $post->author_id;
         $this->post_img = $post->post_img;
+        $this->active = $post->active;
+        return $this;
     }
 
-//    public function removeRecord($id){
-//        $this->db = new Database();
-//        $this->db->delete()->from('posts')->where('id', $id);
-//        return $this->db->get();
-//    }
-
-    public function delete($id){
+    public function delete($id)
+    {
         $setContent = "active = 0";
         $this->db->update('posts', $setContent)->where('id', $id);
         $this->db->get();
     }
 
-//    public function save(){
-//        $fields = 'title, content, author_id, post_img';
-//        $values = "'" .$this->title. "','" .$this->content. "','" .$this->author_id. "','" .$this->post_img. "'";
-//        $this->db = new Database();
-//        $this->db->insert('posts', $fields, $values);
-//        return $this->db->get();
-//    }
-//    }
+    public function getCategories()
+    {
+        $this->db->select('cat_id')->from('category_posts_relationships')
+            ->where('post_id', $this->id);
+        return $this->db->getAll();
+    }
 
     //save turi paskirstyt ar update ar create
-    public function save($id = null){
+    public function save($id = null)
+    {
         if($id !== null){
             $this->id = $id;
             $this->update();
@@ -119,14 +143,16 @@ class PostModel
         }
     }
 
-    public function update(){
+    public function update()
+    {
         $setContent = "title = '$this->title', content = '$this->content', post_img = '$this->post_img', 
         author_id = '$this->author_id'";
         $this->db->update('posts', $setContent)->where('id', $this->id);
         $this->db->get();
     }
 
-    public function create(){
+    public function create()
+    {
         $fields = 'title, content, author_id, post_img';
         $values = "'" .$this->title. "','" .$this->content. "','" .$this->author_id. "','" .$this->post_img. "'";
         $this->db = new Database();

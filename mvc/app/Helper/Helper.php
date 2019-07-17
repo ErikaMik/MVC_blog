@@ -31,4 +31,12 @@ class Helper
         return $token;
     }
 
+    public function makeSlug($title)
+    {
+        $slug = strtolower($title);
+        //n.d. isvalyt lietuviskas raides
+        $slug = str_replace(' ', '-', $slug);
+        return $slug;
+    }
+
 }

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Helper\FormHelper;
+use App\Helper\Helper;
 use App\Model\CategoriesModel;
+use App\Model\PostModel;
 use Core\Controller;
 
 
@@ -45,12 +47,34 @@ class CategoryController extends Controller
 
     public function store()
     {
+        $helper = new Helper();
+        $slug = $helper->makeSlug($_POST['name']);
+
         $categoryModel = new CategoriesModel();
         $categoryModel->setName($_POST['name']);
         $categoryModel->setDescription($_POST['description']);
         $categoryModel->setParentId($_POST['parent_id']);
-        $categoryModel->setSlug($_POST['name']);
+        $categoryModel->setSlug($slug);
         $categoryModel->save();
+    }
+
+    public function show($slug)
+    {
+        $category = new CategoriesModel();
+        $category->loadBySlug($slug);
+        $posts = [];
+        foreach($category->getPosts() as $post){
+            $postObject = new PostModel();
+            $postObject->load($post->post_id);
+
+            if($postObject->getActive() == 1) {
+                $posts[] = $postObject;
+            }
+        }
+
+        $this->view->categoryName = $category->getName();
+        $this->view->posts = $posts;
+        $this->view->render('category/view');
     }
 
 

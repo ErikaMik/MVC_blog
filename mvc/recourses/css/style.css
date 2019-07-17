@@ -61,6 +61,10 @@ h2:hover {
     justify-content: flex-end;
 }
 
+.cat input{
+    display: inline;
+}
+
 .logo img {
     height: 50px;
     margin: 50px;
@@ -83,8 +87,6 @@ header {
 footer {
     background-color: black;
     color: grey;
-    position: sticky;
-    bottom: 0;
 }
 
 footer p {

@@ -2,31 +2,29 @@
 
 namespace App\Controller;
 
+use App\Helper\FormHelper;
+use App\Model\CategoriesModel;
 use Core\Controller;
 use App\Helper\Helper;
 
 class PostController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $this->view->posts = \App\Model\PostModel::getPosts();
-        //$post = $this->view->post = $postsObject->getPost(1);
-        //$post->title;
-
-//        $this->view->render('page/header');
-        //$this->view->title = 'Pavadinimas';
         $this->view->render('posts/post');
-//        $this->view->render('page/footer');
     }
 
-    public function show($id){
-        //$id = (int)$_GET['id'];
+    public function show($id)
+    {
         $postsObject = new \App\Model\PostModel();
         $postsObject->load($id);
         $this->view->post = $postsObject;
         $this->view->render('posts/onepost');
     }
 
-    public function create(){
+    public function create()
+    {
         if(currentUser()){
         //atvaizduoti create forma [VEIKIA]
         $this->view->render('posts/admin/create');
@@ -34,19 +32,9 @@ class PostController extends Controller
         echo '404';}
     }
 
-//    public function delete(){
-//        $id = (int)$_GET['id'];
-//        if(isset($id)){
-//            $postsObject = new \App\Model\PostModel();
-//            $postsObject->removeRecord($id);
-//        }
-//        $postModelObject = new \App\Model\PostModel();
-//        $postModelObject->redirect('http://194.5.157.97/php2/mvc/index.php/post');
-//    }
-
     public function delete($id)
     {
-        if(currentUser()) {
+        if(currentUser()){
             //$id = (int)$_GET['id'];
             $postModelObject = new \App\Model\PostModel();
             $postModelObject->delete($id);
@@ -57,7 +45,8 @@ class PostController extends Controller
             echo '404';
         }
     }
-    public function store(){
+    public function store()
+    {
         if(currentUser()){
         $data = $_POST;
         //print_r($_POST);
@@ -79,19 +68,73 @@ class PostController extends Controller
         }
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         if(currentUser()){
         //$id = (int)$_GET['id'];
+
+            
         $postModelObject = new \App\Model\PostModel();
         $postModelObject->load($id);
-        $this->view->post = $postModelObject;
+
+        $selectedCategories = [];
+        foreach($postModelObject->getCategories() as $cat){
+            $selectedCategories[] = $cat->cat_id;
+        }
+
+        $form = new FormHelper(url('post/update'), 'post', 'wrapper');
+        $form->addInput([
+            'name' => 'title',
+            'type' => 'text',
+            'value' => $postModelObject->getTitle()
+        ])
+            ->addInput([
+                'name' => 'id',
+                'type' => 'hidden',
+                'value' => $postModelObject->getId(),
+            ])
+            ->addTextarea([
+             'name' => 'content'
+            ], 'content', $postModelObject->getContent())
+            ->addInput([
+                'name' => 'post_img',
+                'type' => 'text',
+                'value' => $postModelObject->getImage()
+            ]);
+
+            $allCategories = CategoriesModel::getCategories();
+            foreach($allCategories as $category){
+            if(in_array($category->id, $selectedCategories)){
+                $form->addInput([
+                    'name' => 'category[]',
+                    'type' => 'checkbox',
+                    'checked' => 'checked',
+                    'value' => $category->id,
+                ], $category->name, 'cat');
+            }else{
+                $form->addInput([
+                    'name' => 'category[]',
+                    'type' => 'checkbox',
+                    'value' => $category->id,
+                ], $category->name, 'cat');
+            }
+        }
+
+        $form->addInput([
+            'name' => 'submit',
+            'type' => 'submit',
+            'value' => 'OK'
+        ]);
+
+        $this->view->form = $form->get();
         $this->view->render('posts/admin/edit');
     }else{
             echo '404';
         }
     }
 
-    public function update(){
+    public function update()
+    {
         if(currentUser()){
         $data = $_POST;
         $postModelObject = new \App\Model\PostModel();
