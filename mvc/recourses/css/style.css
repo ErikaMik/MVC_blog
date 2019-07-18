@@ -123,9 +123,23 @@ footer a {
     background-position: center;
 }
 
+table td {
+    border: 1px solid white;
+}
+table {
+    border-collapse: collapse;
+}
+
 .post-column img {
     max-height: 150px;
     margin-top: 10px;
+}
+
+td {
+    padding: 10px;
+}
+table {
+    margin-top: 20px;
 }
 
 .singlepost-column{

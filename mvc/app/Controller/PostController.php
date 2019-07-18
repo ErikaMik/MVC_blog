@@ -73,7 +73,7 @@ class PostController extends Controller
         if(currentUser()){
         //$id = (int)$_GET['id'];
 
-            
+
         $postModelObject = new \App\Model\PostModel();
         $postModelObject->load($id);
 
@@ -138,11 +138,13 @@ class PostController extends Controller
         if(currentUser()){
         $data = $_POST;
         $postModelObject = new \App\Model\PostModel();
+        $postModelObject->load($_POST['id']);
         $postModelObject->setTitle($_POST['title']);
         $postModelObject->setContent($_POST['content']);
         $postModelObject->setAuthorId(1);
         $postModelObject->setImage($_POST['post_img']);
-        $postModelObject->save($data['id']);
+        $postModelObject->save();
+        $postModelObject->setCategories($_POST['category']);
 
         $helper = new Helper();
         $helper->redirect(url('post/'));

@@ -80,13 +80,6 @@ class CategoriesModel
     }
 
 
-    public static function getCategories()
-    {
-        $db = new Database();
-        $db->select()->from('categories')->where('active', 1);
-        return $db->getAll();
-    }
-
     public function save($id = null)
     {
         if($id !== null){
@@ -156,11 +149,26 @@ class CategoriesModel
         return $this->db->getAll();
     }
 
+    public static function getCategories()
+    {
+        $db = new Database();
+        $db->select()->from('categories')->where('active', 1);
+        return $db->getAll();
+    }
+
     public static function getAllCategories()
     {
         $db = new Database();
         $db->select()->from('categories')->where('active', 1);
         return $db->getAll();
+    }
+
+    // ???
+    public function delete($id)
+    {
+        $db = new Database();
+        $setContent = "active = 0";
+        $db->update('categories', $setContent)->where('id', $id)->get();
     }
 
 }

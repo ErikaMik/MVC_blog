@@ -135,8 +135,7 @@ class PostModel
     //save turi paskirstyt ar update ar create
     public function save($id = null)
     {
-        if($id !== null){
-            $this->id = $id;
+        if($this->id){
             $this->update();
         }else{
             $this->create();
@@ -159,4 +158,18 @@ class PostModel
         $this->db->insert('posts', $fields, $values);
         return $this->db->get();
     }
+
+    public function setCategories($categories)
+    {
+        $this->db->delete()->from('category_posts_relationships')
+            ->where('post_id', $this->id)->get();
+
+        $columns = 'cat_id, post_id';
+        foreach($categories as $category){
+            $values = "$category, $this->id";
+            $this->db->insert('category_posts_relationships', $columns, $values)->get();
+        }
+    }
+
+
 }

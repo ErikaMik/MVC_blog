@@ -33,7 +33,7 @@ class Database
 
     public function insert($table, $fields, $values){
         $this->sql .= 'INSERT INTO ' .$table. '(' .$fields. ')' . ' VALUES ' . '(' . $values . ')';
-        //return $this;
+        return $this;
 //        die($this->sql);
     }
 
@@ -89,6 +89,8 @@ class Database
         $this->sql .= " WHERE $fieldanme = '$value'";
         return $this;
     }
+
+
 }
 
 //$DB = new Database();
