@@ -11,7 +11,7 @@
                     <td><input name="post[]" type="checkbox" value="<?php echo $post->id;?>"></td>
                     <td><?php echo $post->title ?></td>
                     <td width="400px"><?php echo $post->content ?></td>
-                    <td><img src="<?php echo $post->post_img ?>" width="150"></td>
+                    <td><img src="<?php echo $post->post_img ?>" width="150px"></td>
                     <td><a href="<?php echo url('post/edit/'); echo $post->id ?>"');" class="btn">
                         EDIT</a></td>
                     <td><a href="<?php echo url('post/delete/'); echo $post->id ?>"

@@ -1,4 +1,4 @@
-.wrapper {
+.wrapper, .registration, .edit-post {
     max-width: 900px;
     margin: 0 auto;
 }
@@ -49,7 +49,7 @@ h2:hover {
 }
 
 .btn:hover:first-child {
-    //border-color: #01ffcb;
+//border-color: #01ffcb;
     background-color: rgba(0, 0, 0, 0.5);
     transition: all 0.4s ease-in-out;
 }
@@ -165,4 +165,17 @@ textarea {
 
 form {
     box-sizing: border-box;
+}
+
+.msg-block{
+    border: 1px solid white;
+    display: none;
+    padding: 10px;
+    margin: 5px;
+    width: fit-content;
+    background-color: rgba(238, 149, 158, 0.3);
+}
+
+.red {
+    border: 2px solid red;
 }

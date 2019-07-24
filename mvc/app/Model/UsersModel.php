@@ -76,7 +76,6 @@ class UsersModel
         $this->password = $password;
     }
 
-
     public function getRoleId()
     {
         return $this->role_id;
@@ -110,7 +109,7 @@ class UsersModel
     public function update()
     {
         $setContent = "name = '$this->name', email = '$this->email', password = '$this->password', 
-        role_id = 1, tries_to_login = '$this->tries_to_login', token = '$this->token'";
+        role_id = 1, tries_to_login = '$this->tries_to_login', token = '$this->token', active = '$this->active'";
         $this->db->update('users', $setContent)->where('id', $this->id);
         $this->db->get();
     }
@@ -159,6 +158,7 @@ class UsersModel
         $this->password = $user->password;
         $this->role_id = $user->role_id;
         $this->token = $user->token;
+        $this->active = $user->active;
         $this->tries_to_login = $user->tries_to_login;
         return $this;
     }
@@ -168,6 +168,24 @@ class UsersModel
         $this->db->select('id')->from('users')->where('email', $email);
         $user = $this->db->get();
         $this->load($user->id);
+    }
+
+    public function loadByToken($token){
+        $this->db->select('id')->from('users')->where('token', $token);
+        $user = $this->db->get();
+        $this->load($user->id);
+    }
+
+
+    public function findToken($token)
+    {
+        $this->db->select()->from('users')->where('token', $token);
+
+        if($this->db->get()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

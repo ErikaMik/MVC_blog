@@ -18,7 +18,7 @@ class AccountController extends Controller
     public function registration()
     {
         //load registration form
-        $form = new \App\Helper\FormHelper(url('account/create'), 'post', 'wrapper');
+        $form = new \App\Helper\FormHelper(url('account/create'), 'post', 'registration');
         $form->addInput([
             'name' => 'name',
             'type' => 'text',
@@ -28,16 +28,19 @@ class AccountController extends Controller
                 'name' => 'email',
                 'type' => 'email',
                 'placeholder' => 'email@email.com',
+                'class' => 'email'
             ])
             ->addInput([
                 'name' => 'password',
                 'type' => 'password',
                 'placeholder' => 'Type in password',
+                'class' => 'password',
             ])
             ->addInput([
                 'name' => 'password2',
                 'type' => 'password',
                 'placeholder' => 'Repeat password',
+                'class' => 'password2',
             ])
             ->addSelect([
                 1=>'admin',
@@ -71,7 +74,7 @@ class AccountController extends Controller
                 'value' => 'submit',
                 'type' => 'submit',
             ]);
-        $this->view->form =  $form->get();
+        $this->view->form = $form->get();
         $this->view->render('account/login');
     }
 
@@ -119,13 +122,13 @@ class AccountController extends Controller
                     $user->save($user->getId());
                     $user->delete();
 
-                    $headers = 'From: noreply@erika.com';
-                    $message = $token;
+                    $headers = 'From: noreply@erikamik.site';
+                    $message = url('account/activate/').$token.'?email='.$email;
                     $subject='Verify account';
                     $emailSent = mail($email, $subject, $message, $headers);
 
                     if( $emailSent == true ) {
-                        echo "Message sent successfully...";
+                        echo "Message sent successfully... $message";
                     }else {
                         echo "Message could not be sent...";
                     }
@@ -138,6 +141,32 @@ class AccountController extends Controller
                 }
             }
         }
+    }
+
+    public function activate($token)
+    {
+        $email = $_GET['email'];
+        $user = new UsersModel();
+        $user->loadByEmail($email);
+        if($user->getToken() == $token){
+            $user->setTriesToLogin('0');
+            $user->setActive('1');
+            $user->setToken('');
+            $user->save($user->getId());
+        }else{
+            echo 'No such user';
+        }
+    }
+
+    public function verify(){
+        $response = [];
+        $email = $_POST['email'];
+        if (inputHelper::uniqueEmail($email)){
+            $response['code'] = 200;
+        }else{
+            $response['code'] = 500;
+        }
+        echo json_encode($response);
     }
 
     public function logout()

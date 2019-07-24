@@ -4,6 +4,8 @@
     <link rel="stylesheet" type="text/css" href="http://194.5.157.97/php2/mvc/recourses/css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Quattrocento&display=swap" rel="stylesheet">
+    <script src="http://194.5.157.97/php2/mvc/recourses/js/jquery.js"></script>
+    <script src="http://194.5.157.97/php2/mvc/recourses/js/functions.js"></script>
     <title>Admin</title>
 </head>
 <header class="wrapper">
@@ -12,6 +14,7 @@
         <a href="<?php echo url('admin/categories'); ?>"class="btn">Cetgories</a>
         <a href="<?php echo url('post/create');?>"');" class="btn">Create post</a>
     </nav>
+    <div class="msg-block"></div>
 </header>
 <body>
 

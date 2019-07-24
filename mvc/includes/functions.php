@@ -6,12 +6,14 @@ function url($path, $param = 0){
 
 }
 
-function currentUser(){
-    if(isset($_SESSION['user'])){
+function currentUser()
+{
+    if (isset($_SESSION['user'])) {
         return $_SESSION['user'];
-    }else{
+    } else {
         return 0;
     }
+}
 
     function debug($data)
     {
@@ -19,4 +21,4 @@ function currentUser(){
         print_r($data);
         die();
     }
-}
+

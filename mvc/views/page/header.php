@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">-->
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css">
     <link rel="stylesheet" type="text/css" href="http://194.5.157.97/php2/mvc/recourses/css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Quattrocento&display=swap" rel="stylesheet">
+    <script src="http://194.5.157.97/php2/mvc/recourses/js/jquery.js"></script>
+    <script src="http://194.5.157.97/php2/mvc/recourses/js/functions.js<?php echo '?time='.date('c')?>"></script>
     <title>Blogas</title>
 </head>
 <body>
+
 <div class="wrapper" id="top">
     <div class="newwrapper">
         <div class="logo">
@@ -32,6 +35,10 @@
             Hi, <?php echo $this->user->name; ?>
             <?php endif; ?>
         </div>
-        </div>
+
     </div>
+    <div class="msg-block"></div>
+</div>
+<div class="main">
+
 

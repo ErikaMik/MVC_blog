@@ -82,7 +82,7 @@ class PostController extends Controller
             $selectedCategories[] = $cat->cat_id;
         }
 
-        $form = new FormHelper(url('post/update'), 'post', 'wrapper');
+        $form = new FormHelper(url('post/update'), 'post', 'edit-post');
         $form->addInput([
             'name' => 'title',
             'type' => 'text',
@@ -136,7 +136,7 @@ class PostController extends Controller
     public function update()
     {
         if(currentUser()){
-        $data = $_POST;
+            $response = [];
         $postModelObject = new \App\Model\PostModel();
         $postModelObject->load($_POST['id']);
         $postModelObject->setTitle($_POST['title']);
@@ -146,10 +146,15 @@ class PostController extends Controller
         $postModelObject->save();
         $postModelObject->setCategories($_POST['category']);
 
-        $helper = new Helper();
-        $helper->redirect(url('post/'));
+        $response['msg'] = 'Post saved!';
+        $response['code'] = 200;
+
+        echo json_encode($response);
+        //$helper = new Helper();
+        //$helper->redirect(url('post/'));
     }else{
             echo '404';
         }
     }
+
 }
