@@ -26,14 +26,21 @@
             <?php else: ?>
             <a href="<?php echo url('account/login'); ?>">Log in</a>
             <?php endif; ?>
-            <?php foreach($this->categories as $category):?>
-                <a href="<?php echo url('category/show/').$category->slug;?>"><?php echo $category->name; ?></a>
-            <?php endforeach; ?>
+
         </nav>
         <div>
             <?php if($this->user):?>
             Hi, <?php echo $this->user->name; ?>
             <?php endif; ?>
+        </div>
+
+        <div class="dropdown">
+            <div class="dropbtn">Categories</div>
+            <div id="myDropdown" class="dropdown-content">
+                <?php foreach($this->categories as $category):?>
+                    <a href="<?php echo url('category/show/').$category->slug;?>"><?php echo $category->name; ?></a>
+                <?php endforeach; ?>
+            </div>
         </div>
 
     </div>

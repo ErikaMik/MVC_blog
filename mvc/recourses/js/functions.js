@@ -47,7 +47,7 @@ $(document).ready(function(){
                 var obj = JSON.parse(response);
                 if(obj.code == 500){
                     $(this).addClass('red');
-                    $('.msg-block').show().text('Vartotojas su tokiu elektroniniu paštu jau egzistuoja');
+                    $('.msg-block').show('slow').text('Vartotojas su tokiu elektroniniu paštu jau egzistuoja');
                 }else{
                     $('.msg-block').html('').hide();
                 }
@@ -55,7 +55,15 @@ $(document).ready(function(){
             }})
     });
 
+    $('.dropdown').click(function(){
+        $('.dropdown-content').toggle();
+    });
 
 });
+
+
+
+// Close the dropdown if the user clicks outside of it
+
 
 
