@@ -16,13 +16,11 @@ $(document).ready(function(){
                 }
             }
         });
-
     });
 
     $('.edit-post').change(function(){
         $('.msg-block').hide('slow').text(obj.msg);
     });
-
 
     $('.password2').change(function(){
         var pass1 = $('.password').val();
@@ -35,8 +33,6 @@ $(document).ready(function(){
             //console.log('neveikia');
         }
     });
-
-
 
     $('.registration .email').change(function(){
         $.ajax({
@@ -57,6 +53,39 @@ $(document).ready(function(){
 
     $('.dropdown').click(function(){
         $('.dropdown-content').toggle();
+    });
+
+
+    // funkcija kuria panaudojam search, kad uzklausas i serveri siustu ne su kiekvieba raide, o po kazkuro laiko
+    function delay(callback, ms) {
+        var timer = 0;
+        return function() {
+            var context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                callback.apply(context, args);
+            }, ms || 0);
+        };
+    }
+
+
+    //$('#username').on("input", username_check);
+    $('#search').keyup(delay(function() {
+        var url = $('.search-form').attr('action');
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: {keyword: $(this).val()},
+            success: function (response)
+            {
+                //var obj = JSON.parse(response);
+                $('.search-wrapper').html(response);
+            }})
+    },500));
+
+    // Kad nesubmitintu formos paspaudus Enter
+    $('.search-form').submit(function (e) {
+        e.preventDefault();
     });
 
 });

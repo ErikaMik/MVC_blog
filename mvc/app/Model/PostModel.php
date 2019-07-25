@@ -171,5 +171,11 @@ class PostModel
         }
     }
 
+    public static function getSearchRezults($keyword)
+    {
+        $db = new Database();
+        $db->select()->from('posts')->whereLike('title', $keyword)->andWhere('active', 1);
+        return $db->getAll();
+    }
 
 }

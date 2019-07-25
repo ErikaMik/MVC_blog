@@ -90,6 +90,11 @@ class Database
         return $this;
     }
 
+    public function whereLike($fieldanme, $value){
+        $this->sql .= " WHERE $fieldanme LIKE '%$value%'";
+        return $this;
+    }
+
 
 }
 
