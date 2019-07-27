@@ -69,7 +69,6 @@ $(document).ready(function(){
     }
 
 
-    //$('#username').on("input", username_check);
     $('#search').keyup(delay(function() {
         var url = $('.search-form').attr('action');
         $.ajax({
@@ -88,11 +87,21 @@ $(document).ready(function(){
         e.preventDefault();
     });
 
+
+    //Render comments
+    $('.comments-wrapper').ready(function(){
+
+        var location = window.location.href;
+        var id = location.split("show/").pop();
+
+        $.ajax({
+            type: "GET",
+            url: "http://194.5.157.97/php2/mvc/index.php/comments/show/" + id,
+            // data: $(this).val(window.location.href),
+
+            success: function (comments) {
+                $('.comments-wrapper').html(comments);
+            }});
+
+    });
 });
-
-
-
-// Close the dropdown if the user clicks outside of it
-
-
-

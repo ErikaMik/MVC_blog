@@ -20,6 +20,19 @@ class PostController extends Controller
         $postsObject = new \App\Model\PostModel();
         $postsObject->load($id);
         $this->view->post = $postsObject;
+
+        $form = new \App\Helper\FormHelper(url('comments/create/').$id, 'post', 'wrapper');
+        $form->addTextarea([
+            'name' => 'comment',
+            'placeholder' => 'Comment..',
+        ], 'comment', '')
+            ->addInput([
+                'name' => 'submit',
+                'type' => 'submit',
+                'value' => 'Comment'
+            ], '', 'comment-submit');
+
+        $this->view->form = $form->get();
         $this->view->render('posts/onepost');
     }
 

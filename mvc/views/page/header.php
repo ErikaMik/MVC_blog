@@ -26,7 +26,7 @@
             <?php else: ?>
             <a href="<?php echo url('account/login'); ?>">Log in</a>
             <?php endif; ?>
-
+            <a href="<?php echo url('search/'); ?>">Search Posts</a>
         </nav>
         <div>
             <?php if($this->user):?>
