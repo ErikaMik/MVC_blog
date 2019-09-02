@@ -103,8 +103,13 @@ class PostModel
         return $this->db->get();
     }
 
-    //load uzloadina ir susetina viska
+    public function postAuthor($id)
+    {
+        $this->db->select('name')->from('posts')->where('id', $id);
+        return $this->db->get();
+    }
 
+    //load uzloadina ir susetina viska
     public function load($id)
     {
         $this->db->select()->from('posts')->where('id', $id);

@@ -2,6 +2,8 @@
 
 namespace App\Block\Posts;
 
+use App\Model\CommentsModel;
+
 class Comments
 {
     public function getCommentsBlock($comments)
@@ -18,9 +20,10 @@ class Comments
 
     public function getCommentBlock($comment)
     {
+        $author = CommentsModel::authorName($comment);
         $html = '';
         $html .= '<div class="comment">';
-        $html .= "<h4>$comment->date</h4>";
+        $html .= "<h4>$comment->date - $author->name</h4>";
         $html .= "<p>$comment->comment</p>";
         $html .= '</div>';
 

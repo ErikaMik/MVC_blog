@@ -5,10 +5,10 @@ namespace App\Helper;
 class FormHelper
 {
 
-    public function __construct($action, $method, $class = '')
+    public function __construct($action, $method, $class = '', $param="")
     {
 
-        $this->html = '<form class="'.$class.'" action="'.$action.'" method="'.$method.'">';
+        $this->html = '<form class="'.$class.'" action="'.$action.'" method="'.$method.'" '.$param.'>';
     }
     
     public function addInput($attributes, $label='', $class='')

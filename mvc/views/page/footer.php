@@ -3,7 +3,7 @@
 ?>
 
     <footer>
-        <p>Copyright © ErikaMik 2019. All rights reserved. <a href="#top">Go UP!</a></p>
+        <p>Copyright © ErikaMik <?php echo date('Y'); ?>. All rights reserved. <a href="#top">Go UP!</a></p>
     </footer>
     </body>
 </html>

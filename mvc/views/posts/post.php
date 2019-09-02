@@ -3,7 +3,7 @@
         <?php foreach($this->posts as $post): ?>
             <div class="post-column">
                 <a href="<?php echo url('post/show/'); echo $post->id ?>">
-                    <img src="<?php echo $post->post_img ?>">
+                    <img src="<?php echo 'http://194.5.157.97/php2/mvc/uploads/'.App\Helper\ImageHelper::loadImage($post->post_img);?>">
                     <h2><?php echo $post->title ?></h2>
                 </a>
                 <?php if($this->user):; ?>

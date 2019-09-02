@@ -10,7 +10,8 @@ require __DIR__ . '/vendor/autoload.php';
 use App\Helper\Helper; //tas pats kas include app/helper.php
 
 //echo '<pre>';
-//print_r($_SERVER);
+//phpinfo();
+//die();
 
 if(isset($_SERVER['PATH_INFO'])){
     $path = $_SERVER['PATH_INFO'];
@@ -56,7 +57,4 @@ if(isset($path[1]) && !empty($path[1])){
     $object->index();
 }
 
-
-//require 'views/page/header.php';
-//require 'views/page/footer.php';
 

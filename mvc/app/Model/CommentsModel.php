@@ -95,6 +95,14 @@ class CommentsModel
         return $db->getAll();
     }
 
+    public static function authorName($comment)
+    {
+        $db = new Database();
+        $db->select('name')->from('users')->where('id', $comment->author_id);
+        $name = $db->get();
+        return $name;
+    }
+
     public function delete($id)
     {
         $setContent = "active = 0";

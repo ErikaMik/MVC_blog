@@ -2,7 +2,11 @@
 
 function url($path, $param = 0){
 
-    return 'http://194.5.157.97/php2/mvc/index.php/'.$path;
+    $url = 'http://194.5.157.97/php2/mvc/index.php/'.$path;
+    if($param !== 0){
+        $url = $url.'/'.$param;
+    }
+    return $url;
 
 }
 

@@ -1,22 +1,22 @@
 $(document).ready(function(){
     // console.log('veikia');
-    $('.edit-post').submit(function(e){ //eventas submit
-        e.preventDefault(); // stabdo default veikima
-        //console.log('iki cia veikia');
-        var url = $('.edit-post').attr('action');
-        console.log(url);
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: $(this).serialize(), //serialize paima visus inputus, paduoda i data
-            success: function(response){
-                var obj = JSON.parse(response);
-                if(obj.code == 200){
-                    $('.msg-block').show('slow').text(obj.msg);
-                }
-            }
-        });
-    });
+    // $('.edit-post').submit(function(e){ //eventas submit
+    //     e.preventDefault(); // stabdo default veikima
+    //     //console.log('iki cia veikia');
+    //     var url = $('.edit-post').attr('action');
+    //     console.log(url);
+    //     $.ajax({
+    //         type: "POST",
+    //         url: url,
+    //         data: $(this).serialize(), //serialize paima visus inputus, paduoda i data
+    //         success: function(response){
+    //             var obj = JSON.parse(response);
+    //             if(obj.code == 200){
+    //                 $('.msg-block').show('slow').text(obj.msg);
+    //             }
+    //         }
+    //     });
+    // });
 
     $('.edit-post').change(function(){
         $('.msg-block').hide('slow').text(obj.msg);

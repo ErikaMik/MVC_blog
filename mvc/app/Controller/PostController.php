@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Helper\FormHelper;
+use App\Helper\ImageHelper;
 use App\Model\CategoriesModel;
 use Core\Controller;
 use App\Helper\Helper;
+use Intervention\Image\ImageManager;
 
 class PostController extends Controller
 {
@@ -58,28 +60,6 @@ class PostController extends Controller
             echo '404';
         }
     }
-    public function store()
-    {
-        if(currentUser()){
-        $data = $_POST;
-        //print_r($_POST);
-        //die();
-        $postModelObject = new \App\Model\PostModel();
-        $postModelObject->setTitle($_POST['title']);
-        $postModelObject->setContent($_POST['content']);
-        $postModelObject->setAuthorId(1);
-        $postModelObject->setImage($_POST['post_img']);
-        $postModelObject->save();
-
-        $helper = new Helper();
-        $helper->redirect(url('post/'));
-
-        //kviesim PostsModel Class ir createPost metoda
-        //ivyks redirect i index metoda index.php/post
-    }else{
-            echo '404';
-        }
-    }
 
     public function edit($id)
     {
@@ -95,7 +75,7 @@ class PostController extends Controller
             $selectedCategories[] = $cat->cat_id;
         }
 
-        $form = new FormHelper(url('post/update'), 'post', 'edit-post');
+        $form = new FormHelper(url('post/update'), 'post', 'edit-post', 'enctype="multipart/form-data"');
         $form->addInput([
             'name' => 'title',
             'type' => 'text',
@@ -111,7 +91,7 @@ class PostController extends Controller
             ], 'content', $postModelObject->getContent())
             ->addInput([
                 'name' => 'post_img',
-                'type' => 'text',
+                'type' => 'file',
                 'value' => $postModelObject->getImage()
             ]);
 
@@ -149,15 +129,18 @@ class PostController extends Controller
     public function update()
     {
         if(currentUser()){
-            $response = [];
+        $response = [];
         $postModelObject = new \App\Model\PostModel();
         $postModelObject->load($_POST['id']);
         $postModelObject->setTitle($_POST['title']);
         $postModelObject->setContent($_POST['content']);
         $postModelObject->setAuthorId(1);
-        $postModelObject->setImage($_POST['post_img']);
+        $postModelObject->setImage($_FILES["post_img"]["name"]);
         $postModelObject->save();
         $postModelObject->setCategories($_POST['category']);
+
+        $image = basename($_FILES["post_img"]["name"]);
+        ImageHelper::imageSave($image);
 
         $response['msg'] = 'Post saved!';
         $response['code'] = 200;

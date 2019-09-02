@@ -46,7 +46,8 @@ class CommentsController extends Controller
             $helper->redirect(url('post/show/').$id);
         }else{
             $helper = new Helper();
-            $helper->redirect(url('post/show/').$id);}
+            $helper->redirect(url('post/show/').$id);
+        }
     }
 
     public function show($id)
