@@ -6,6 +6,7 @@ use Intervention\Image\ImageManager;
 
 class ImageHelper
 {
+
     public static function imageSave($image)
     {
         $image = basename($_FILES["resume"]["name"]);

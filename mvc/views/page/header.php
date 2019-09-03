@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Quattrocento&display=swap" rel="stylesheet">
     <script src="http://194.5.157.97/php2/mvc/recourses/js/jquery.js"></script>
     <script src="http://194.5.157.97/php2/mvc/recourses/js/functions.js<?php echo '?time='.date('c')?>"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <title>Blogas</title>
 </head>
 <body>

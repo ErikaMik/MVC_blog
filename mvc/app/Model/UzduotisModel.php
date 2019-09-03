@@ -184,11 +184,39 @@ class UzduotisModel
 
     public function create()
     {
-        $fields = 'name, email, phone, jobid, jobtitle, coverletter, resume';
-        $values = "'" .$this->name. "','" .$this->email. "','" .$this->phone.  "','" .$this->jobid.  "','" .$this->jobtitle.  "','" .$this->coverletter.  "','" .$this->resume. "'";
-        //debug($values);
-        $this->db->insert('uzduotis', $fields, $values);
-        return $this->db->get();
+        $timestamp = time();
+        $folder = "/var/www/html/php2/mvc/uploads/careers/resumes/";
+        $resume = ($_FILES['resume']['name']);
+        $target = $folder.basename($timestamp.$_FILES['resume']['name']);
+        $type = ($_FILES['resume']['type']);
+        $extension = strtolower(substr($resume, strpos($resume, '.') + 1));
+        $size = ($_FILES['resume']['size']);
+        $error = array();
+        $max_size = 3145728;
+
+        //debug($this->name);
+        if (isset ($resume)) {
+            if (empty ($resume)){
+                $error['resume']="<p class='error'>Resume Required </p>";
+            }if (!empty ($resume) && empty($error)){
+                if(($extension=='doc'||$extension=='docx'||$extension=='txt'||$extension=='pdf')&&($type=='application/pdf'||'application/msword'||'application/vnd.openxmlformats-officedocument.wordprocessingml.document'||'text/plain')&&$size<=$max_size) {
+                    if (move_uploaded_file($_FILES['resume']['tmp_name'], $target)) {
+                        $fields = 'name, email, phone, jobid, jobtitle, coverletter, resume';
+                        $values = "'" .$this->name. "','" .$this->email. "','" .$this->phone.  "','" .$this->jobid.  "','" .$this->jobtitle.  "','" .$this->coverletter.  "','" .$timestamp.$_FILES['resume']['name']. "'";
+                        //debug($values);
+                        $this->db->insert('uzduotis', $fields, $values);
+                        return $this->db->get();
+
+                    }else{
+                        echo 'Incorectly filled in form';
+                    }
+                }else{
+                    echo 'Incorectly filled in form';
+                }
+            }else{
+                echo 'Incorectly filled in form';
+            }
+        }
     }
 
 }

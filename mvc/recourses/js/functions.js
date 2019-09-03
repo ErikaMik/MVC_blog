@@ -22,6 +22,16 @@ $(document).ready(function(){
         $('.msg-block').hide('slow').text(obj.msg);
     });
 
+
+
+    // $('.wrapper').submit(function (e) {
+    //     e.preventDefault();
+    //     var obj = JSON.parse(response);
+    //     //$('.wrapper').show('slow').text(obj);
+    //     $('.input').addClass('red');
+    //     $('.msg-block').show('slow').text(obj);
+    // });
+
     $('.password2').change(function(){
         var pass1 = $('.password').val();
         var pass2 = $('.password2').val();
@@ -105,3 +115,4 @@ $(document).ready(function(){
 
     });
 });
+
